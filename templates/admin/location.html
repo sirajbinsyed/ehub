@@ -1,0 +1,100 @@
+{% extends "./admin/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+   
+   
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" action="/admin-location">
+                            <input type="hidden" name="location_id" value="{{ location_to_edit.id if location_to_edit else '' }}">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="{{ location_to_edit.name if location_to_edit else '' }}" 
+                                       placeholder="Enter location name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="latitude">Latitude</label>
+                                <input type="text" class="form-control" id="latitude" name="latitude" 
+                                       value="{{ location_to_edit.latitude if location_to_edit else '' }}" 
+                                       placeholder="Enter latitude" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="longitude">Longitude</label>
+                                <input type="text" class="form-control" id="longitude" name="longitude" 
+                                       value="{{ location_to_edit.longitude if location_to_edit else '' }}" 
+                                       placeholder="Enter longitude" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ 'Update' if location_to_edit else 'Submit' }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Locations Data Table</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-in-card">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Latitude</th>
+                                    <th scope="col">Longitude</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for location in locations %}
+                                <tr>
+                                    <th scope="row">{{ location.id }}</th>
+                                    <td>{{ location.name }}</td>
+                                    <td>{{ location.latitude }}</td>
+                                    <td>{{ location.longitude }}</td>
+                                    <td>
+                                        <a href="{{ url_for('adminlocation', edit=location.id) }}"  class="btn btn-info btn-sm">Edit</a> 
+                                        <form action="{{ url_for('delete_location', location_id=location.id) }}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+  
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
+
+{% endblock %}

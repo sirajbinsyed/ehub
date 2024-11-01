@@ -1,0 +1,64 @@
+{% extends "./user/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Pickup Form -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Create Pickup</h3>
+                    </div>
+                    <form action="{{ url_for('create_pickup') }}" method="POST">
+                        
+                        <div class="form-group">
+                            <!-- Company Name and Location (Displayed as text) -->
+                            <label for="company_info">Company Information</label>
+                            <p id="company_info"><strong>{{ company.name }}</strong> - {{ company.address}}</p>
+                        
+                            <!-- Hidden input field to pass company_id -->
+                            <input type="hidden" id="company_id" name="company_id" value="{{ company.id }}">
+                        </div>
+
+                        <!-- Category Dropdown -->
+                        <div class="form-group">
+                            <label for="category_id">Category</label>
+                            <select class="form-control" id="category_id" name="category_id" required>
+                                <option value="" disabled selected>--Select a Category--</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="location">Pickup Location</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" required>
+                        </div>
+
+                        <!-- Landmark -->
+                        <div class="form-group">
+                            <label for="land_mark">Landmark</label>
+                            <input type="text" class="form-control" id="land_mark" name="land_mark" placeholder="Enter Landmark" required>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="form-group">
+                            <label for="contact">Contact Number</label>
+                            <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Create Pickup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

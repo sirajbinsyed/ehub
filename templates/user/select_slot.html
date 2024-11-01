@@ -1,0 +1,57 @@
+{% extends "./user/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Slot Details Table -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Slot Details</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Slot ID</th>
+                                    <th scope="col">Offers (%)</th>
+                                    <th scope="col">Slot Number</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for slot in slots %}
+                                <tr>
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <td>{{ slot.slot_id }}</td>
+                                    <td>{{ slot.offers }}</td>
+                                    <td>{{ slot.slot }}</td>
+                                    <td>{{ slot.unit_price }}</td>
+                                    <td>
+                                        
+                                        {% if slot.status == "Available" %}
+                                            <!-- Book Slot Button for Available slots -->
+                                            <a href="{{ url_for('book_slot', slot_id=slot.slot_id) }}" class="btn btn-success btn-sm">Book Now</a>
+                                        {% elif slot.status == "Booked" %}
+                                            <!-- Booked Slot Button -->
+                                            <button class="btn btn-danger btn-sm" disabled>Booked</button>
+                                        {% else %}
+                                            <!-- Slot Not Available -->
+                                            <span class="badge badge-warning">Not Available</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "./admin/base.html" %}
+{% block content %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="page-wrapper" style="padding:10px;">
+<div class="container mt-5">
+    
+    <!-- Company Details Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body text-center">
+                    {% if company %}
+                        <h3 class="card-title">{{ company[0].name }}</h3>
+                        <p><strong>Location:</strong> {{ company[0].location_name }}</p>
+                        <p><strong>Address:</strong> {{ company[0].address }}</p>
+                        <p><strong>Contact:</strong> {{ company[0].phone_no }}</p>
+                        <p><strong>Email:</strong> {{ company[0].gmail }}</p>
+                    {% else %}
+                        <p class="text-warning">No company details available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pickups Section -->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-4 text-center">Company Pickups</h4>
+            {% if pickups %}
+                {% for pickup in pickups %}
+                <div class="card mb-4" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">
+                    
+                    <!-- User and Pickup ID Information -->
+                    <div class="card-header d-flex justify-content-between align-items-center p-3" style="background-color: #666b6b; border-bottom: 1px solid #ddd;">
+                        <div>
+                            <!-- Pickup ID and User Name Displayed Parallel -->
+                            <span class="text-white" style="font-size: 1.2rem; font-weight: bold;">Pickup ID: #{{ pickup.pickup_id }}</span>
+                            <span class="card-title mb-0" style="font-size: 1.2rem; color: #fdfdff; font-weight: bold; margin-left: 50px;"><strong>Name: </strong>{{ pickup.user_name }}</span>
+                        </div>
+
+                        <!-- Status Badge and Change Status Button -->
+                        <div class="d-flex align-items-center">
+                            <span class="badge" 
+                                style="background-color: 
+                                    {% if pickup.status == 'booked' %}
+                                        #28a745
+                                    {% elif pickup.status == 'closed' %}
+                                        #007bff
+                                    {% else %}
+                                        #dc3545
+                                    {% endif %};
+                                    color: #fff; font-size: .6rem; font-weight: bold; padding: 10px; margin: 15px;">
+                                {{ pickup.status | capitalize }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Pickup Information -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <strong style="color: #5a5a5a;">Location:</strong>
+                                <p>{{ pickup.location }}</p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong style="color: #5a5a5a;">Landmark:</strong>
+                                <p>{{ pickup.landmark }}</p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong style="color: #5a5a5a;">Category:</strong>
+                                <p>{{ pickup.category_name }}</p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong style="color: #5a5a5a;">Pickup Time:</strong>
+                                <p>{{ pickup.time }}</p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong style="color: #5a5a5a;">Contact:</strong>
+                                <p>{{ pickup.contact }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No pickups found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

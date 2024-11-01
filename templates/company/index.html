@@ -1,0 +1,194 @@
+{% extends "./company/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+   
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Three charts -->
+        <!-- ============================================================== -->
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    <h3 class="box-title">Total Company Bookings</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div id="sparklinedash"><canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                            </div>
+                        </li>
+                        <li class="ms-auto"><span class="counter text-success">{{counts[0].booking_count}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    <h3 class="box-title">Total Company Pickups</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div id="sparklinedash2"><canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                            </div>
+                        </li>
+                        <li class="ms-auto"><span class="counter text-purple">{{counts[0].pickup_count}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    <h3 class="box-title">Total Company Reviews</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div id="sparklinedash3"><canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                            </div>
+                        </li>
+                        <li class="ms-auto"><span class="counter text-info">{{counts[0].rating_count}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- PRODUCTS YEARLY SALES -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+        <!-- RECENT SALES -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+        <!-- Recent Comments -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <!-- .col -->
+            <div class="col-md-12 col-lg-8 col-sm-12">
+                <div class="card white-box p-0">
+                    <div class="card-body">
+                        <h3 class="box-title mb-0">Recent EV Feedback</h3>
+                    </div>
+                    <div class="comment-widgets">
+                        <!-- Feedback Row -->
+                        <div class="d-flex flex-row comment-row p-3 mt-0">
+                            <div class="p-2">
+                                <i class="fas fa-charging-station fa-2x"></i> <!-- Charging Station Icon -->
+                            </div>
+                            <div class="comment-text ps-2 ps-md-3 w-100">
+                                <h5 class="font-medium">Charging Station A</h5>
+                                <span class="mb-3 d-block">"Charging speed was great, but there was a queue during peak hours."</span>
+                                <div class="comment-footer d-md-flex align-items-center">
+                                    <span class="badge bg-primary rounded">In Use</span>
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">September 28, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Feedback Row -->
+                        <div class="d-flex flex-row comment-row p-3">
+                            <div class="p-2">
+                                <i class="fas fa-car fa-2x"></i> <!-- EV Icon -->
+                            </div>
+                            <div class="comment-text ps-2 ps-md-3 w-100">
+                                <h5 class="font-medium">EV Model X</h5>
+                                <span class="mb-3 d-block">"Fantastic range, but charging takes longer than expected."</span>
+                                <div class="comment-footer d-md-flex align-items-center">
+                                    <span class="badge bg-success rounded">Reviewed</span>
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">September 25, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Feedback Row -->
+                        <div class="d-flex flex-row comment-row p-3">
+                            <div class="p-2">
+                                <i class="fas fa-battery-full fa-2x"></i> <!-- Battery Icon -->
+                            </div>
+                            <div class="comment-text ps-2 ps-md-3 w-100">
+                                <h5 class="font-medium">Battery Health Service</h5>
+                                <span class="mb-3 d-block">"Battery maintenance service was quick and efficient."</span>
+                                <div class="comment-footer d-md-flex align-items-center">
+                                    <span class="badge bg-danger rounded">Needs Attention</span>
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">September 21, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="card white-box p-0">
+                    <div class="card-heading">
+                        <h3 class="box-title mb-0">EV Chat</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="chatonline">
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-car"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center">
+                                    <i class="fas fa-charging-station fa-2x"></i>
+                                    <div class="ms-2">
+                                        <span class="text-dark">Charging Station B <small class="d-block text-success">Available</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-car"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center">
+                                    <i class="fas fa-car-battery fa-2x"></i>
+                                    <div class="ms-2">
+                                        <span class="text-dark">Battery Swap Station <small class="d-block text-warning">Under Maintenance</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-car"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center">
+                                    <i class="fas fa-tools fa-2x"></i>
+                                    <div class="ms-2">
+                                        <span class="text-dark">EV Repair Shop <small class="d-block text-danger">Busy</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+   
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
+
+
+
+{%endblock%}

@@ -1,0 +1,84 @@
+{% extends "./company/base.html" %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Row for Search Bar -->
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="booking_date">Search by Date</label>
+                            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+                        </div>
+                        <a href="#" id="search_link" class="btn btn-primary">Search</a>
+                        
+                        <script>
+                            // JavaScript to handle the date parameter and update the URL
+                            document.getElementById("search_link").addEventListener("click", function() {
+                                var date = document.getElementById("booking_date").value;
+                                if (date) {
+                                    // Construct the URL with the date parameter
+                                    var newUrl = "{{ url_for('company_bookings') }}?date=" + date;
+                                    window.location.href = newUrl;  // Redirect to the new URL
+                                } else {
+                                    alert("Please select a date before searching.");
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row for Displaying Bookings Table -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Closed Bookings</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-in-card">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Booking ID</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Slot</th>
+                                    <th scope="col">Status</th>
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if bookings %}
+                                    {% for booking in bookings %}
+                                    <tr>
+                                        <td>{{ booking.booking_id }}</td>
+                                        <td>{{ booking.user_name }}</td>
+                                        <td>{{ booking.date }}</td>
+                                        <td>{{ booking.time }}</td>
+                                        <td>{{ booking.slot_id }}</td>
+                                        <td>{{ booking.status }}</td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No bookings found</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

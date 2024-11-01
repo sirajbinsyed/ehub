@@ -1,0 +1,69 @@
+{% extends "./admin/base.html" %}
+{% block content %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="page-wrapper" style="padding:10px;">
+    <div class="container mt-5">
+    
+        <!-- Company Details Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body text-center">
+                        {% if company %}
+                            <h3 class="card-title">{{ company[0].name }}</h3>
+                            <p><strong>Location:</strong> {{ company[0].location_name }}</p>
+                            <p><strong>Address:</strong> {{ company[0].address }}</p>
+                            <p><strong>Contact:</strong> {{ company[0].phone_no }}</p>
+                            <p><strong>Email:</strong> {{ company[0].gmail }}</p>
+                        {% else %}
+                            <p class="text-warning">No company details available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Section -->
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-4 text-center">Company Bookings</h4>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>User Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Slot ID</th>
+                            <th>Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if bookings %}
+                            {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.booking_id }}</td>
+                                <td>{{ booking.user_name }}</td>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time }}</td>
+                                <td>{{ booking.slot_id }}</td>
+                                <td>{{ booking.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">No bookings found.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

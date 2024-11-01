@@ -1,0 +1,111 @@
+
+{% extends "./company/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Page Title -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-12 align-self-center">
+                <h3 class="text-themecolor mb-0"></h3>
+            </div>
+        </div>
+
+        <!-- Pickup Card Design -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Pickup Details</h3>
+                    </div>
+
+                    {% if pickups %}
+                        {% for pickup in pickups %}
+                        <div class="card mb-4" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">
+                            <!-- User and Pickup ID Information -->
+                            <div class="card-header d-flex justify-content-between align-items-center p-3" style="background-color: #666b6b; border-bottom: 1px solid #ddd;">
+                                <div>
+                                   
+                                    <!-- Pickup ID -->
+                                    <span class="text-white" style="font-size: 1.2rem; font-weight: bold;">Pickup ID: #{{ pickup.pickup_id }}</span>
+                                     <!-- User Name -->
+                                     <span class="card-title mb-0" style="font-size: 1.2rem; color: #fdfdff; font-weight: bold;margin-left: 50px;"><strong>Name: </strong>{{ pickup.user_name }}</span>
+                                      <!-- Status Badge -->
+                                    <span class="badge" 
+                                    style="background-color: 
+                                        {% if pickup.status == 'booked' %}
+                                            #28a745
+                                        {% elif pickup.status == 'closed' %}
+                                            #007bff
+                                        {% else %}
+                                            #dc3545
+                                        {% endif %};
+                                        color: #fff; font-size: .6rem; font-weight: bold; padding: 10px; margin:10px;">
+                                    {{ pickup.status | capitalize }}
+                                </span>
+                                </div>
+                                
+                                <!-- Status and Change Status Button -->
+                                <div class="d-flex align-items-center">
+                                   
+                                    
+                                    <!-- Change Status Button (increased size) -->
+                                    <a href="{{url_for('confirmed_pickups', pickup_id=pickup.pickup_id)}}" class="btn btn-primary btn-lg ml-3" style="font-size: 1rem; padding: 10px 10px;margin: 5px;" >
+                                        Close Pickup
+                                    </a>
+                                    <!-- Change Status Button (increased size) -->
+                                    <!-- <a href="{{url_for('new_pickups', cancel_pickup_id=pickup.pickup_id)}}"class="btn btn-danger btn-lg ml-3" style="font-size: 1rem; padding: 10px 10px;margin: 5px;" >
+                                        Cancel Pickup
+                                    </a> -->
+                                </div>
+                            </div>
+
+                            <!-- Pickup Information -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <strong style="color: #5a5a5a;">Location:</strong>
+                                        <p>{{ pickup.location }}</p>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <strong style="color: #5a5a5a;">Landmark:</strong>
+                                        <p>{{ pickup.landmark }}</p>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <strong style="color: #5a5a5a;">Category:</strong>
+                                        <p>{{ pickup.category_name }}</p>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <strong style="color: #5a5a5a;">Pickup Time:</strong>
+                                        <p>{{ pickup.time }}</p>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <strong style="color: #5a5a5a;">Contact:</strong>
+                                        <p>{{ pickup.contact }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No pickups found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changePickupStatus(pickupId) {
+        // Add your logic here to change the status of the pickup.
+        // You can make an AJAX request to update the pickup status in the backend.
+        alert('Change status for pickup ID: ' + pickupId);
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "./company/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column for Adding/Editing Slot -->
+            <div class="col-lg-12 col-xlg-3 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" action="/allocate-slot">
+                            <!-- Hidden field to store slot_id for editing -->
+                            <input type="hidden" name="slot_id" value="{{ slot_to_edit.slot_id if slot_to_edit else '' }}">
+                            
+                            <!-- Input for Slot Number -->
+                            <div class="form-group">
+                                <label for="slot_num">Slot Number</label>
+                                <input type="text" class="form-control" id="slot_num" name="slot_num" 
+                                       value="{{ slot_to_edit.slot if slot_to_edit else '' }}" 
+                                       placeholder="Enter slot number" required>
+                            </div>
+                            
+                            <!-- Input for Unit Price -->
+                            <div class="form-group">
+                                <label for="unit_price">Unit Price</label>
+                                <input type="text" class="form-control" id="unit_price" name="unit_price" 
+                                       value="{{ slot_to_edit.unit_price if slot_to_edit else '' }}" 
+                                       placeholder="Enter unit price" required>
+                            </div>
+                            
+                            
+                            <!-- Input for Offers -->
+                            <div class="form-group">
+                                <label for="offers">Offers</label>
+                                <input type="text" class="form-control" id="offers" name="offers" 
+                                       value="{{ slot_to_edit.offers if slot_to_edit else '' }}" 
+                                       placeholder="Enter offers" required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">{{ 'Update' if slot_to_edit else 'Submit' }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column for Displaying Slot Data Table -->
+            <div class="col-lg-12 col-xlg-9 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Slot Data Table</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-in-card">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Slot Number</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Offers</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for slot in slots %}
+                                <tr>
+                                    <th scope="row">{{ slot.id }}</th>
+                                    <td>{{ slot.slot }}</td>
+                                    <td>{{ slot.unit_price }}</td>
+                                    <td>{{ slot.status }}</td>
+                                    <td>{{ slot.offers }}%</td>
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <a href="{{ url_for('allocateslot', edit=slot.slot_id) }}" class="btn btn-info btn-sm">Edit</a>
+
+                                        <!-- Delete Button -->
+                                        <form action="{{ url_for('delete_slot', slot_id=slot.slot_id) }}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

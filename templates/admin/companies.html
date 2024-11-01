@@ -1,0 +1,81 @@
+{% extends "./admin/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+            <!-- Search Bar -->
+            <div class="form-group">
+                <label for="location_search">Search by Location</label>
+                <select class="form-control" id="location_search">
+                    <option value="" disabled selected>--Select a Location--</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <script>
+                document.getElementById('location_search').addEventListener('change', function() {
+                    var locationId = this.value;
+                    if (locationId) {
+                        // Redirect to the select-company route with the location id as a parameter
+                        var baseUrl = "{{ url_for('admin_companies') }}";
+                        window.location.href = `${baseUrl}?search=${locationId}`;
+                    }
+                });
+            </script>
+
+        <!-- Company Table -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Company Data Table</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Gmail</th>
+                                    <th scope="col">Location Name</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for company in companies %}
+                                <tr>
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <td>{{ company.id }}</td>
+                                    <td>{{ company.name }}</td>
+                                    <td>{{ company.address }}</td>
+                                    <td>{{ company.phone_no }}</td>
+                                    <td>{{ company.gmail }}</td>
+                                    <td>{{ company.location_name }}</td>
+                                    <td>
+        
+                                        {% if for_page == 'pickups' %}
+                                        <a href="{{ url_for('admin_company_pickups', company_id=company.id) }}" class="btn btn-info btn-sm">Show Pickups</a>
+                                        
+                                        {% elif for_page == 'bookings' %}
+                                        <a href="{{ url_for('admin_company_bookings', company_id=company.id) }}" class="btn btn-primary btn-sm">Show Bookings</a>
+                                        {% else %}
+                                        <a href="{{ url_for('admin_company_review', company_id=company.id) }}" class="btn btn-secondary btn-sm">Show Reviews</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

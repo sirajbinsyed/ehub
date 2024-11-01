@@ -1,0 +1,62 @@
+{% extends "./user/base.html" %}
+{% block content %}
+<div class="page-wrapper" style="padding:10px;">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Company Details Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body text-center">
+                    {% if company %}
+                        <h3 class="card-title">{{ company[0].name }}</h3>
+                        <p><strong>Location:</strong> {{ company[0].location_name }}</p>
+                        <p><strong>Address:</strong> {{ company[0].address }}</p>
+                        <p><strong>Contact:</strong> {{ company[0].phone_no }}</p>
+                        <p><strong>Email:</strong> {{ company[0].gmail }}</p>
+                    {% else %}
+                        <p class="text-warning">No company details available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Reviews Section -->
+<div class="row">
+    <div class="col-12">
+        {% if reviews %}
+            <h4 class="mb-4 text-center">User Reviews ({{ reviews|length }})</h4> <!-- Count of Reviews -->
+            
+            <div class="list-group">
+                {% for review in reviews %}
+                    <div class="list-group-item mb-3 p-4 shadow-sm rounded" style="background-color: #f9f9f9;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0">{{ review.user_name }}</h5>
+                            <div>
+                                <!-- Display Filled Star Ratings -->
+                                {% for star in range(1, review.ratings + 1) %}
+                                    <span class="text-warning">&#9733;</span> <!-- Filled Star -->
+                                {% endfor %}
+                            
+                                <!-- Display Empty Star Ratings -->
+                                {% for star in range(review.ratings + 1, 6) %}
+                                    <span class="text-muted">&#9734;</span> <!-- Empty Star -->
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="text-dark"><strong>Review:</strong> {{ review.command }}</p>
+                        <small class="text-muted">Reviewed on: {{ review.date }}</small>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-warning text-center">No reviews available for this company.</p>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

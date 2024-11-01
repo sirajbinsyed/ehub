@@ -1,0 +1,69 @@
+{% extends "./user/base.html" %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Slot Booking Form -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Book Slot</h3>
+                    </div>
+                    <form action="{{ url_for('book_slot') }}" method="POST">
+                        <!-- Hidden field for Slot ID -->
+                        <input type="hidden" name="slot_id" value="{{ slot_details[0].slot_id }}">
+                        <input type="hidden" name="company_id" value="{{ slot_details[0].company_id }}">
+
+                        <!-- Slot Number -->
+                        <div class="form-group">
+                            <label for="slot_num">Slot Number</label>
+                            <input type="text" class="form-control" id="slot_num" name="slot_num" value="{{ slot_details[0].slot }}" readonly>
+                        </div>
+
+                        <!-- Slot Location -->
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" value="{{ slot_details[0].location_name }}" readonly>
+                        </div>
+                        <!-- Offer -->
+                        <div class="form-group">
+                            <label for="offer">Offer ( % )</label>
+                            <input type="text" class="form-control" id="offer" name="offer" value="{{ slot_details[0].offers }}%" readonly>
+                        </div>
+
+                        <!-- Unit Price -->
+                        <div class="form-group">
+                            <label for="unit_price">Unit Price ( ₹ )</label>
+                            <input type="text" class="form-control" id="unit_price" name="unit_price" value="{{ slot_details[0].unit_price }}" readonly>
+                        </div>
+
+                        <!-- Category Dropdown -->
+                        <div class="form-group">
+                            <label for="category_id">Category</label>
+                            <select class="form-control" id="category_id" name="category_id" required>
+                                <option value="" disabled selected>--Select a Category--</option>
+                                {% for category in catagory %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Time Picker -->
+                        <div class="form-group">
+                            <label for="time">Select Time</label>
+                            <input type="time" class="form-control" id="time" name="time" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Book Slot</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
